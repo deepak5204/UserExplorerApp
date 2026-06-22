@@ -62,4 +62,6 @@ dependencies {
     implementation(libs.converter.gson)
 
     implementation(libs.logging.interceptor)
+
+    implementation(libs.kotlinx.coroutines.android)
 }

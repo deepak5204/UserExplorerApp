@@ -7,6 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitInstance {
 
+    private const val BASE_URL = "https://jsonplaceholder.typicode.com/"
     private val interceptor = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY
     }
@@ -16,7 +17,7 @@ object RetrofitInstance {
         .build()
 
     val api: UserApi = Retrofit.Builder()
-        .baseUrl("https://reqres.in/api/")
+        .baseUrl(BASE_URL)
         .client(client)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
