@@ -1,6 +1,7 @@
 package com.example.userexplorerapp
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -11,12 +12,27 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.lifecycleScope
+import com.example.userexplorerapp.network.RetrofitInstance
 import com.example.userexplorerapp.ui.theme.UserExplorerAppTheme
+import kotlinx.coroutines.launch
+import java.lang.Exception
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+
+        lifecycleScope.launch {
+            try {
+                val response = RetrofitInstance.api.getUsers(1)
+                Log.d("API", response.toString())
+
+            }
+            catch (e: Exception){
+                Log.e("API", "Error: ${e.message}")
+            }
+        }
+
         setContent {
             UserExplorerAppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
