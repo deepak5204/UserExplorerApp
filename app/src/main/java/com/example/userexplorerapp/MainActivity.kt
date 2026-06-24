@@ -13,8 +13,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.userexplorerapp.network.RetrofitInstance
 import com.example.userexplorerapp.ui.theme.UserExplorerAppTheme
+import com.example.userexplorerapp.viewmodel.UserViewModel
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
@@ -22,18 +24,19 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        lifecycleScope.launch {
-            try {
-                val response = RetrofitInstance.api.getUsers(1)
-                Log.d("API", response.toString())
-
-            }
-            catch (e: Exception){
-                Log.e("API", "Error: ${e.message}")
-            }
-        }
+//        lifecycleScope.launch {
+//            try {
+//                val response = RetrofitInstance.api.getUsers(1)
+//                Log.d("API", response.toString())
+//
+//            }
+//            catch (e: Exception){
+//                Log.e("API", "Error: ${e.message}")
+//            }
+//        }
 
         setContent {
+            val viewModel: UserViewModel = viewModel()
             UserExplorerAppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Greeting(

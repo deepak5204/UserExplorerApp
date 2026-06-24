@@ -64,4 +64,6 @@ dependencies {
     implementation(libs.logging.interceptor)
 
     implementation(libs.kotlinx.coroutines.android)
+
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
 }
