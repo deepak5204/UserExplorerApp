@@ -24,17 +24,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-//        lifecycleScope.launch {
-//            try {
-//                val response = RetrofitInstance.api.getUsers(1)
-//                Log.d("API", response.toString())
-//
-//            }
-//            catch (e: Exception){
-//                Log.e("API", "Error: ${e.message}")
-//            }
-//        }
-
         setContent {
             val viewModel: UserViewModel = viewModel()
             UserExplorerAppTheme {
