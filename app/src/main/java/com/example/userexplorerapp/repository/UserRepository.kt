@@ -6,6 +6,6 @@ import com.example.userexplorerapp.network.UserApi
 
 class UserRepository{
     suspend fun getUsers(): List<UserDto> {
-        return RetrofitInstance.api.getUsers(1).data
+        return RetrofitInstance.api.getUsers(1)
     }
 }
