@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.lifecycleScope
@@ -25,31 +27,29 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            val viewModel: UserViewModel = viewModel()
+            val viewModel: UserViewModel = viewModel() // bcz viewModel() is a composable function
             UserExplorerAppTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
+                    UserScreen(
+                        viewModel = viewModel
                     )
-                }
             }
         }
     }
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
+fun UserScreen(viewModel: UserViewModel) {
+    val uiState by viewModel.uiState.collectAsState()
+    Text("Users size: ${uiState.users.size}")
+
 }
+
+
 
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     UserExplorerAppTheme {
-        Greeting("Android")
+        UserScreen(viewModel = viewModel())
     }
 }
