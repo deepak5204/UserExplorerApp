@@ -158,7 +158,19 @@ fun UserScreen(viewModel: UserViewModel) {
                                     val intent = Intent(
                                         Intent.ACTION_VIEW,
                                         uri
-                                    )
+                                    ).apply {
+                                        setPackage("com.google.android.apps.maps")
+                                    }
+
+                                    if(intent.resolveActivity(context.packageManager) != null){
+                                        context.startActivity(intent)
+                                    }else {
+                                        val browserIntent = Intent(
+                                            Intent.ACTION_VIEW,
+                                            "https://www.google.com/maps/dir/?api=1&destination=$lat,$lng".toUri()
+                                        )
+                                        context.startActivity(browserIntent)
+                                    }
 
                                     context.startActivity(intent)
                                 },
