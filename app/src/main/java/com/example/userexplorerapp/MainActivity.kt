@@ -150,6 +150,18 @@ fun UserScreen(viewModel: UserViewModel) {
 
                         Column {
                             Row(
+                                modifier = Modifier.clickable {
+                                    val lat = user.address.geo.lat
+                                    val lng = user.address.geo.lng
+
+                                    val uri = "https://maps.google.com/?q=$lat,$lng".toUri()
+                                    val intent = Intent(
+                                        Intent.ACTION_VIEW,
+                                        uri
+                                    )
+
+                                    context.startActivity(intent)
+                                },
                                 horizontalArrangement = Arrangement.spacedBy(8.dp)
                             ) {
                                 Icon(
@@ -158,7 +170,7 @@ fun UserScreen(viewModel: UserViewModel) {
                                 )
 
                                 Column {
-                                    Text(text = user.address.city)
+                                    Text(text = user.address.city, color = Color.Blue)
                                     Row(
                                         horizontalArrangement = Arrangement.spacedBy(8.dp)
                                     ) {
@@ -166,6 +178,8 @@ fun UserScreen(viewModel: UserViewModel) {
                                         Text(text = user.address.suite, style = infoTextStyle)
                                     }
                                 }
+
+
 
                             }
 
