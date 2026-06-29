@@ -1,10 +1,15 @@
 package com.example.userexplorerapp
 
+import android.content.Intent
+import android.content.Intent.ACTION_VIEW
+import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -23,17 +28,22 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.userexplorerapp.ui.theme.UserExplorerAppTheme
 import com.example.userexplorerapp.viewmodel.UserViewModel
+import androidx.core.net.toUri
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,8 +65,17 @@ fun UserScreen(viewModel: UserViewModel) {
     val uiState by viewModel.uiState.collectAsState()
     val context = LocalContext.current
 
+    val infoTextStyle = MaterialTheme.typography.bodyLarge.copy(
+        fontSize = 16.sp
+    )
     if (uiState.isLoading) {
+
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ){
         CircularProgressIndicator()
+        }
     } else if (uiState.error != null) {
         Toast.makeText(context, uiState.error, Toast.LENGTH_SHORT).show()
     } else {
@@ -72,6 +91,7 @@ fun UserScreen(viewModel: UserViewModel) {
 
                 Card(
                     modifier = Modifier.fillMaxWidth(),
+                    colors = CardDefaults.cardColors(containerColor = Color.White),
                     shape = RoundedCornerShape(16.dp),
                     elevation = CardDefaults.cardElevation(6.dp)
                 ) {
@@ -84,8 +104,8 @@ fun UserScreen(viewModel: UserViewModel) {
                         ) {
                             Icon(imageVector = Icons.Default.Person, contentDescription = "profile")
                             Column {
-                                Text(text = user.name)
-                                Text(text = user.username)
+                                Text(text = user.name, style = infoTextStyle)
+                                Text(text = user.username, style = infoTextStyle)
                             }
                         }
 
@@ -96,7 +116,7 @@ fun UserScreen(viewModel: UserViewModel) {
                             Icon(
                                 imageVector = Icons.Default.Email, contentDescription = "email"
                             )
-                            Text(text = user.email)
+                            Text(text = user.email, style = infoTextStyle)
                         }
 
                         Row(
@@ -105,7 +125,7 @@ fun UserScreen(viewModel: UserViewModel) {
                             Icon(
                                 imageVector = Icons.Default.Phone, contentDescription = "phone"
                             )
-                            Text(text = user.phone)
+                            Text(text = user.phone, style = infoTextStyle)
                         }
 
                         Row(
@@ -114,7 +134,18 @@ fun UserScreen(viewModel: UserViewModel) {
                             Icon(
                                 imageVector = Icons.Default.Build, contentDescription = "websites"
                             )
-                            Text(text = user.website)
+                            Text(
+                                text = user.website,
+                                style = infoTextStyle,
+                                color = Color.Blue,
+                                modifier = Modifier.clickable
+                                {
+                                    val intent = Intent(ACTION_VIEW,
+                                        "https://${user.website}".toUri()
+                                    )
+                                    context.startActivity(intent)
+                                }
+                            )
                         }
 
                         Column {
@@ -131,8 +162,8 @@ fun UserScreen(viewModel: UserViewModel) {
                                     Row(
                                         horizontalArrangement = Arrangement.spacedBy(8.dp)
                                     ) {
-                                        Text(user.address.street)
-                                        Text(text = user.address.suite)
+                                        Text(user.address.street, style = infoTextStyle)
+                                        Text(text = user.address.suite, style = infoTextStyle)
                                     }
                                 }
 
