@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -106,14 +105,14 @@ fun UserScreen(viewModel: UserViewModel) {
                             horizontalArrangement = Arrangement.spacedBy(8.dp)
                         ) {
 
-                                AsyncImage(
-                                    model = "https://i.pravatar.cc/150?img=${user.id}",
-                                    contentDescription = null,
-                                    modifier = Modifier
-                                        .size(72.dp)
-                                        .clip(CircleShape),
-                                    contentScale = ContentScale.Fit
-                                )
+                            AsyncImage(
+                                model = "https://i.pravatar.cc/150?img=${user.id}",
+                                contentDescription = null,
+                                modifier = Modifier
+                                    .size(72.dp)
+                                    .clip(CircleShape),
+                                contentScale = ContentScale.Fit
+                            )
 //                            Icon(imageVector = Icons.Default.Person, contentDescription = "profile")
                             Column {
                                 Text(text = user.name, style = infoTextStyle)
@@ -128,7 +127,16 @@ fun UserScreen(viewModel: UserViewModel) {
                             Icon(
                                 imageVector = Icons.Default.Email, contentDescription = "email"
                             )
-                            Text(text = user.email, style = infoTextStyle)
+
+
+                            println("user_email"+ user.email)
+                            Text(
+                                text = user.email,
+                                style = infoTextStyle,
+                                modifier = Modifier.clickable {
+                                    val intent = Intent(Intent.ACTION_SENDTO, "mailto:${user.email}".toUri())
+                                    context.startActivity(intent)
+                                })
                         }
 
                         Row(
@@ -137,7 +145,16 @@ fun UserScreen(viewModel: UserViewModel) {
                             Icon(
                                 imageVector = Icons.Default.Phone, contentDescription = "phone"
                             )
-                            Text(text = user.phone, style = infoTextStyle)
+
+                            println("user_pnone"+ user.phone)
+                            Text(
+                                text = user.phone,
+                                style = infoTextStyle,
+                                modifier = Modifier.clickable {
+                                    val intent =
+                                        Intent(Intent.ACTION_DIAL, "tel:${user.email}".toUri())
+                                    context.startActivity(intent)
+                                })
                         }
 
                         Row(
