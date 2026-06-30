@@ -43,6 +43,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -51,7 +52,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.example.userexplorerapp.ui.theme.UserExplorerAppTheme
 import com.example.userexplorerapp.viewmodel.UserViewModel
-
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,9 +72,7 @@ fun UserScreen(viewModel: UserViewModel) {
     val uiState by viewModel.uiState.collectAsState()
     val context = LocalContext.current
 
-    val infoTextStyle = MaterialTheme.typography.bodyLarge.copy(
-        fontSize = 16.sp
-    )
+    val infoTextStyle = MaterialTheme.typography.bodyMedium
     if (uiState.isLoading) {
 
         Box(
@@ -144,6 +142,7 @@ fun UserScreen(viewModel: UserViewModel) {
                                     )
                                 }
                             }
+
                         }
 
 
@@ -155,14 +154,21 @@ fun UserScreen(viewModel: UserViewModel) {
 
 
                             Row(
-                                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                                verticalAlignment = Alignment.CenterVertically
                             ) {
+                                Box(
+                                    modifier = Modifier
+                                        .size(40.dp)
+                                        .clip(CircleShape)
+                                        .background(color = Color.Black),
+                                    contentAlignment = Alignment.Center
+                                ){
                                 Icon(
-                                    imageVector = Icons.Default.Email, contentDescription = "email"
+                                    painter = painterResource(R.drawable.ic_mail), contentDescription = "email", tint = Color.Unspecified
                                 )
+                                }
 
-
-                                println("user_email" + user.email)
                                 Text(
                                     text = user.email,
                                     style = infoTextStyle,
@@ -175,13 +181,24 @@ fun UserScreen(viewModel: UserViewModel) {
                             }
 
                             Row(
-                                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                                verticalAlignment = Alignment.CenterVertically
                             ) {
-                                Icon(
-                                    imageVector = Icons.Default.Phone, contentDescription = "phone"
-                                )
 
-                                println("user_pnone" + user.phone)
+                                Box(
+                                    modifier = Modifier
+                                        .size(40.dp)
+                                        .clip(CircleShape)
+                                        .background(color = Color.Black),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Icon(
+                                        painter = painterResource(R.drawable.ic_call),
+                                        contentDescription = "phone",
+                                        tint = Color.Unspecified
+                                    )
+                                }
+
                                 Text(
                                     text = user.phone,
                                     style = infoTextStyle,
@@ -193,12 +210,21 @@ fun UserScreen(viewModel: UserViewModel) {
                             }
 
                             Row(
-                                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                                verticalAlignment = Alignment.CenterVertically
                             ) {
-                                Icon(
-                                    imageVector = Icons.Default.Build,
-                                    contentDescription = "websites"
-                                )
+                                Box(
+                                    modifier = Modifier
+                                        .size(40.dp)
+                                        .clip(CircleShape)
+                                        .background(color = Color.Black),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Icon(
+                                        painter = painterResource(R.drawable.ic_language),
+                                        contentDescription = "websites", tint = Color.Unspecified
+                                    )
+                                }
                                 Text(
                                     text = user.website,
                                     style = infoTextStyle,
@@ -235,15 +261,24 @@ fun UserScreen(viewModel: UserViewModel) {
                                         }
 
                                         context.startActivity(intent)
-                                    }, horizontalArrangement = Arrangement.spacedBy(8.dp)
+                                    }, horizontalArrangement = Arrangement.spacedBy(8.dp),
+                                    verticalAlignment = Alignment.CenterVertically
                                 ) {
-                                    Icon(
-                                        imageVector = Icons.Default.LocationOn,
-                                        contentDescription = "Location"
-                                    )
+                                    Box(
+                                        modifier = Modifier
+                                            .size(40.dp)
+                                            .clip(CircleShape)
+                                            .background(color = Color.Black),
+                                        contentAlignment = Alignment.Center
+                                    ) {
+                                        Icon(
+                                            painter = painterResource(R.drawable.ic_location),
+                                            contentDescription = "Location", tint = Color.Unspecified
+                                        )
+                                    }
 
                                     Column {
-                                        Text(text = user.address.city, color = Color.Blue)
+                                        Text(text = user.address.city)
                                         Row(
                                             horizontalArrangement = Arrangement.spacedBy(8.dp)
                                         ) {
