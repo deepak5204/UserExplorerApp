@@ -6,16 +6,20 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -98,127 +102,158 @@ fun UserScreen(viewModel: UserViewModel) {
                     elevation = CardDefaults.cardElevation(6.dp)
                 ) {
                     Column(
-                        modifier = Modifier.padding(16.dp),
+//                        modifier = Modifier.padding(),
                         verticalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
-                        Row(
-                            horizontalArrangement = Arrangement.spacedBy(8.dp)
-                        ) {
 
-                            AsyncImage(
-                                model = "https://i.pravatar.cc/150?img=${user.id}",
-                                contentDescription = null,
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(100.dp)
+                                .background(
+                                    shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp), color = Color(0xFF1F2A44)
+                                ),
+                            contentAlignment = Alignment.CenterStart
+                        ) {
+                            Row(
                                 modifier = Modifier
-                                    .size(72.dp)
-                                    .clip(CircleShape),
-                                contentScale = ContentScale.Fit
-                            )
-//                            Icon(imageVector = Icons.Default.Person, contentDescription = "profile")
-                            Column {
-                                Text(text = user.name, style = infoTextStyle)
-                                Text(text = user.username, style = infoTextStyle)
+                                    .padding(horizontal = 16.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                            ) {
+
+                                AsyncImage(
+                                    model = "https://i.pravatar.cc/150?img=${user.id}",
+                                    contentDescription = null,
+                                    modifier = Modifier
+                                        .size(72.dp)
+                                        .clip(CircleShape),
+                                    contentScale = ContentScale.Fit
+                                )
+
+                                Spacer(modifier = Modifier.width(16.dp))
+                                Column {
+                                    Text(
+                                        text = user.name,
+                                        style = MaterialTheme.typography.titleLarge,
+                                        color = Color.White,
+                                    )
+                                    Text(
+                                        text = user.username,
+                                        style = MaterialTheme.typography.titleMedium,
+                                        color = Color.White,
+                                    )
+                                }
                             }
                         }
 
 
-                        Row(
-                            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        Column(
+                            modifier = Modifier
+                                .padding(start = 20.dp, top = 24.dp, bottom = 24.dp),
+                            verticalArrangement = Arrangement.spacedBy(16.dp)
                         ) {
-                            Icon(
-                                imageVector = Icons.Default.Email, contentDescription = "email"
-                            )
 
 
-                            println("user_email"+ user.email)
-                            Text(
-                                text = user.email,
-                                style = infoTextStyle,
-                                modifier = Modifier.clickable {
-                                    val intent = Intent(Intent.ACTION_SENDTO, "mailto:${user.email}".toUri())
-                                    context.startActivity(intent)
-                                })
-                        }
-
-                        Row(
-                            horizontalArrangement = Arrangement.spacedBy(8.dp)
-                        ) {
-                            Icon(
-                                imageVector = Icons.Default.Phone, contentDescription = "phone"
-                            )
-
-                            println("user_pnone"+ user.phone)
-                            Text(
-                                text = user.phone,
-                                style = infoTextStyle,
-                                modifier = Modifier.clickable {
-                                    val intent =
-                                        Intent(Intent.ACTION_DIAL, "tel:${user.email}".toUri())
-                                    context.startActivity(intent)
-                                })
-                        }
-
-                        Row(
-                            horizontalArrangement = Arrangement.spacedBy(8.dp)
-                        ) {
-                            Icon(
-                                imageVector = Icons.Default.Build, contentDescription = "websites"
-                            )
-                            Text(
-                                text = user.website,
-                                style = infoTextStyle,
-                                color = Color.Blue,
-                                modifier = Modifier.clickable {
-                                    val intent = Intent(
-                                        ACTION_VIEW, "https://${user.website}".toUri()
-                                    )
-                                    context.startActivity(intent)
-                                })
-                        }
-
-                        Column {
                             Row(
-                                modifier = Modifier.clickable {
-                                    val lat = user.address.geo.lat
-                                    val lng = user.address.geo.lng
-
-                                    val uri = "https://maps.google.com/?q=$lat,$lng".toUri()
-                                    val intent = Intent(
-                                        Intent.ACTION_VIEW, uri
-                                    ).apply {
-                                        setPackage("com.google.android.apps.maps")
-                                    }
-
-                                    if (intent.resolveActivity(context.packageManager) != null) {
-                                        context.startActivity(intent)
-                                    } else {
-                                        val browserIntent = Intent(
-                                            Intent.ACTION_VIEW,
-                                            "https://www.google.com/maps/dir/?api=1&destination=$lat,$lng".toUri()
-                                        )
-                                        context.startActivity(browserIntent)
-                                    }
-
-                                    context.startActivity(intent)
-                                }, horizontalArrangement = Arrangement.spacedBy(8.dp)
+                                horizontalArrangement = Arrangement.spacedBy(8.dp)
                             ) {
                                 Icon(
-                                    imageVector = Icons.Default.LocationOn,
-                                    contentDescription = "Location"
+                                    imageVector = Icons.Default.Email, contentDescription = "email"
                                 )
 
-                                Column {
-                                    Text(text = user.address.city, color = Color.Blue)
-                                    Row(
-                                        horizontalArrangement = Arrangement.spacedBy(8.dp)
-                                    ) {
-                                        Text(user.address.street, style = infoTextStyle)
-                                        Text(text = user.address.suite, style = infoTextStyle)
+
+                                println("user_email" + user.email)
+                                Text(
+                                    text = user.email,
+                                    style = infoTextStyle,
+                                    modifier = Modifier.clickable {
+                                        val intent = Intent(
+                                            Intent.ACTION_SENDTO, "mailto:${user.email}".toUri()
+                                        )
+                                        context.startActivity(intent)
+                                    })
+                            }
+
+                            Row(
+                                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.Phone, contentDescription = "phone"
+                                )
+
+                                println("user_pnone" + user.phone)
+                                Text(
+                                    text = user.phone,
+                                    style = infoTextStyle,
+                                    modifier = Modifier.clickable {
+                                        val intent =
+                                            Intent(Intent.ACTION_DIAL, "tel:${user.email}".toUri())
+                                        context.startActivity(intent)
+                                    })
+                            }
+
+                            Row(
+                                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.Build,
+                                    contentDescription = "websites"
+                                )
+                                Text(
+                                    text = user.website,
+                                    style = infoTextStyle,
+                                    color = Color.Blue,
+                                    modifier = Modifier.clickable {
+                                        val intent = Intent(
+                                            ACTION_VIEW, "https://${user.website}".toUri()
+                                        )
+                                        context.startActivity(intent)
+                                    })
+                            }
+
+                            Column {
+                                Row(
+                                    modifier = Modifier.clickable {
+                                        val lat = user.address.geo.lat
+                                        val lng = user.address.geo.lng
+
+                                        val uri = "https://maps.google.com/?q=$lat,$lng".toUri()
+                                        val intent = Intent(
+                                            Intent.ACTION_VIEW, uri
+                                        ).apply {
+                                            setPackage("com.google.android.apps.maps")
+                                        }
+
+                                        if (intent.resolveActivity(context.packageManager) != null) {
+                                            context.startActivity(intent)
+                                        } else {
+                                            val browserIntent = Intent(
+                                                Intent.ACTION_VIEW,
+                                                "https://www.google.com/maps/dir/?api=1&destination=$lat,$lng".toUri()
+                                            )
+                                            context.startActivity(browserIntent)
+                                        }
+
+                                        context.startActivity(intent)
+                                    }, horizontalArrangement = Arrangement.spacedBy(8.dp)
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Default.LocationOn,
+                                        contentDescription = "Location"
+                                    )
+
+                                    Column {
+                                        Text(text = user.address.city, color = Color.Blue)
+                                        Row(
+                                            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                                        ) {
+                                            Text(user.address.street, style = infoTextStyle)
+                                            Text(text = user.address.suite, style = infoTextStyle)
+                                        }
                                     }
                                 }
 
-
                             }
-
                         }
                     }
                 }
