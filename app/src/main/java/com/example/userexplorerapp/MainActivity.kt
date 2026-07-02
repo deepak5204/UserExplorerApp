@@ -24,13 +24,11 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Build
-import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.LocationOn
-import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -46,12 +44,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.core.net.toUri
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.example.userexplorerapp.ui.theme.UserExplorerAppTheme
 import com.example.userexplorerapp.viewmodel.UserViewModel
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,6 +64,8 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+
+
 
 @Composable
 fun UserScreen(viewModel: UserViewModel) {
@@ -100,7 +100,6 @@ fun UserScreen(viewModel: UserViewModel) {
                     elevation = CardDefaults.cardElevation(6.dp)
                 ) {
                     Column(
-//                        modifier = Modifier.padding(),
                         verticalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
 
@@ -109,13 +108,12 @@ fun UserScreen(viewModel: UserViewModel) {
                                 .fillMaxWidth()
                                 .height(100.dp)
                                 .background(
-                                    shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp), color = Color(0xFF1F2A44)
-                                ),
-                            contentAlignment = Alignment.CenterStart
+                                    shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
+                                    color = Color(0xFF1F2A44)
+                                ), contentAlignment = Alignment.CenterStart
                         ) {
                             Row(
-                                modifier = Modifier
-                                    .padding(horizontal = 16.dp),
+                                modifier = Modifier.padding(horizontal = 16.dp),
                                 verticalAlignment = Alignment.CenterVertically,
                             ) {
 
@@ -147,121 +145,17 @@ fun UserScreen(viewModel: UserViewModel) {
 
 
                         Column(
-                            modifier = Modifier
-                                .padding(start = 20.dp, top = 24.dp, bottom = 24.dp),
-                            verticalArrangement = Arrangement.spacedBy(16.dp)
+                            modifier = Modifier.padding(start = 16.dp,  end = 16.dp, top = 8.dp, bottom = 24.dp)
                         ) {
-
-
-                            Row(
-                                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Box(
-                                    modifier = Modifier
-                                        .size(40.dp)
-                                        .clip(CircleShape)
-                                        .background(color = Color.Black),
-                                    contentAlignment = Alignment.Center
-                                ){
-                                Icon(
-                                    painter = painterResource(R.drawable.ic_mail), contentDescription = "email", tint = Color.Unspecified
-                                )
-                                }
-
-                                Text(
-                                    text = user.email,
-                                    style = infoTextStyle,
-                                    modifier = Modifier.clickable {
-                                        val intent = Intent(
-                                            Intent.ACTION_SENDTO, "mailto:${user.email}".toUri()
-                                        )
-                                        context.startActivity(intent)
-                                    })
-                            }
-
-                            Row(
-                                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                                verticalAlignment = Alignment.CenterVertically
+                            Column(
+                                modifier = Modifier.padding(
+                                   horizontal = 16.dp
+                                ), verticalArrangement = Arrangement.spacedBy(8.dp)
                             ) {
 
-                                Box(
-                                    modifier = Modifier
-                                        .size(40.dp)
-                                        .clip(CircleShape)
-                                        .background(color = Color.Black),
-                                    contentAlignment = Alignment.Center
-                                ) {
-                                    Icon(
-                                        painter = painterResource(R.drawable.ic_call),
-                                        contentDescription = "phone",
-                                        tint = Color.Unspecified
-                                    )
-                                }
 
-                                Text(
-                                    text = user.phone,
-                                    style = infoTextStyle,
-                                    modifier = Modifier.clickable {
-                                        val intent =
-                                            Intent(Intent.ACTION_DIAL, "tel:${user.email}".toUri())
-                                        context.startActivity(intent)
-                                    })
-                            }
-
-                            Row(
-                                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Box(
-                                    modifier = Modifier
-                                        .size(40.dp)
-                                        .clip(CircleShape)
-                                        .background(color = Color.Black),
-                                    contentAlignment = Alignment.Center
-                                ) {
-                                    Icon(
-                                        painter = painterResource(R.drawable.ic_language),
-                                        contentDescription = "websites", tint = Color.Unspecified
-                                    )
-                                }
-                                Text(
-                                    text = user.website,
-                                    style = infoTextStyle,
-                                    color = Color.Blue,
-                                    modifier = Modifier.clickable {
-                                        val intent = Intent(
-                                            ACTION_VIEW, "https://${user.website}".toUri()
-                                        )
-                                        context.startActivity(intent)
-                                    })
-                            }
-
-                            Column {
                                 Row(
-                                    modifier = Modifier.clickable {
-                                        val lat = user.address.geo.lat
-                                        val lng = user.address.geo.lng
-
-                                        val uri = "https://maps.google.com/?q=$lat,$lng".toUri()
-                                        val intent = Intent(
-                                            Intent.ACTION_VIEW, uri
-                                        ).apply {
-                                            setPackage("com.google.android.apps.maps")
-                                        }
-
-                                        if (intent.resolveActivity(context.packageManager) != null) {
-                                            context.startActivity(intent)
-                                        } else {
-                                            val browserIntent = Intent(
-                                                Intent.ACTION_VIEW,
-                                                "https://www.google.com/maps/dir/?api=1&destination=$lat,$lng".toUri()
-                                            )
-                                            context.startActivity(browserIntent)
-                                        }
-
-                                        context.startActivity(intent)
-                                    }, horizontalArrangement = Arrangement.spacedBy(8.dp),
+                                    horizontalArrangement = Arrangement.spacedBy(8.dp),
                                     verticalAlignment = Alignment.CenterVertically
                                 ) {
                                     Box(
@@ -272,24 +166,211 @@ fun UserScreen(viewModel: UserViewModel) {
                                         contentAlignment = Alignment.Center
                                     ) {
                                         Icon(
-                                            painter = painterResource(R.drawable.ic_location),
-                                            contentDescription = "Location", tint = Color.Unspecified
+                                            painter = painterResource(R.drawable.ic_mail),
+                                            contentDescription = "email",
+                                            tint = Color.Unspecified
                                         )
                                     }
 
-                                    Column {
-                                        Text(text = user.address.city)
-                                        Row(
-                                            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                                    Text(
+                                        text = user.email,
+                                        style = infoTextStyle,
+                                        modifier = Modifier.clickable {
+                                            val intent = Intent(
+                                                Intent.ACTION_SENDTO, "mailto:${user.email}".toUri()
+                                            )
+                                            context.startActivity(intent)
+                                        })
+                                }
+
+                                Row(
+                                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+
+                                    Box(
+                                        modifier = Modifier
+                                            .size(40.dp)
+                                            .clip(CircleShape)
+                                            .background(color = Color.Black),
+                                        contentAlignment = Alignment.Center
+                                    ) {
+                                        Icon(
+                                            painter = painterResource(R.drawable.ic_call),
+                                            contentDescription = "phone",
+                                            tint = Color.Unspecified
+                                        )
+                                    }
+
+                                    Text(
+                                        text = user.phone,
+                                        style = infoTextStyle,
+                                        modifier = Modifier.clickable {
+                                            val intent = Intent(
+                                                Intent.ACTION_DIAL, "tel:${user.email}".toUri()
+                                            )
+                                            context.startActivity(intent)
+                                        })
+                                }
+
+                                Row(
+                                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Box(
+                                        modifier = Modifier
+                                            .size(40.dp)
+                                            .clip(CircleShape)
+                                            .background(color = Color.Black),
+                                        contentAlignment = Alignment.Center
+                                    ) {
+                                        Icon(
+                                            painter = painterResource(R.drawable.ic_language),
+                                            contentDescription = "websites",
+                                            tint = Color.Unspecified
+                                        )
+                                    }
+                                    Text(
+                                        text = user.website,
+                                        style = infoTextStyle,
+                                        color = Color.Blue,
+                                        modifier = Modifier.clickable {
+                                            val intent = Intent(
+                                                ACTION_VIEW, "https://${user.website}".toUri()
+                                            )
+                                            context.startActivity(intent)
+                                        })
+                                }
+
+                                Column {
+                                    Row(
+                                        modifier = Modifier.clickable {
+                                            val lat = user.address.geo.lat
+                                            val lng = user.address.geo.lng
+
+                                            val uri = "https://maps.google.com/?q=$lat,$lng".toUri()
+                                            val intent = Intent(
+                                                Intent.ACTION_VIEW, uri
+                                            ).apply {
+                                                setPackage("com.google.android.apps.maps")
+                                            }
+
+                                            if (intent.resolveActivity(context.packageManager) != null) {
+                                                context.startActivity(intent)
+                                            } else {
+                                                val browserIntent = Intent(
+                                                    Intent.ACTION_VIEW,
+                                                    "https://www.google.com/maps/dir/?api=1&destination=$lat,$lng".toUri()
+                                                )
+                                                context.startActivity(browserIntent)
+                                            }
+
+                                            context.startActivity(intent)
+                                        },
+                                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                                        verticalAlignment = Alignment.CenterVertically
+                                    ) {
+                                        Box(
+                                            modifier = Modifier
+                                                .size(40.dp)
+                                                .clip(CircleShape)
+                                                .background(color = Color.Black),
+                                            contentAlignment = Alignment.Center
                                         ) {
-                                            Text(user.address.street, style = infoTextStyle)
-                                            Text(text = user.address.suite, style = infoTextStyle)
+                                            Icon(
+                                                painter = painterResource(R.drawable.ic_location),
+                                                contentDescription = "Location",
+                                                tint = Color.Unspecified
+                                            )
+                                        }
+
+                                        Column {
+                                            Text(text = user.address.city)
+                                            Row(
+                                                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                                            ) {
+                                                Text(user.address.street, style = infoTextStyle)
+                                                Text(
+                                                    text = user.address.suite, style = infoTextStyle
+                                                )
+                                            }
                                         }
                                     }
+
                                 }
 
                             }
+
+                            HorizontalDivider(
+                                modifier = Modifier
+                                    .padding(vertical = 20.dp)
+                            )
+
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween
+                            ) {
+                                Column(
+                                    horizontalAlignment = Alignment.CenterHorizontally
+                                ) {
+                                    Icon(
+                                        painter = painterResource(R.drawable.ic_mail),
+                                        contentDescription = "email",
+                                        tint = Color.Blue
+                                    )
+                                    Text(
+                                        text = "Send Email",
+                                        style = MaterialTheme.typography.bodySmall,
+                                        color = Color.Blue
+                                    )
+                                }
+
+                                Column(
+                                    horizontalAlignment = Alignment.CenterHorizontally
+                                ) {
+                                    Icon(
+                                        painter = painterResource(R.drawable.ic_call),
+                                        contentDescription = "phone",
+                                        tint = Color.Blue
+                                    )
+                                    Text(
+                                        text = "Call Now",
+                                        style = MaterialTheme.typography.bodySmall,
+                                        color = Color.Blue
+                                    )
+                                }
+
+                                Column(
+                                    horizontalAlignment = Alignment.CenterHorizontally
+                                ) {
+                                    Icon(
+                                        painter = painterResource(R.drawable.ic_language),
+                                        contentDescription = "websites",
+                                        tint = Color.Blue
+                                    )
+                                    Text(
+                                        text = "Open Website",
+                                        style = MaterialTheme.typography.bodySmall,
+                                        color = Color.Blue
+                                    )
+                                }
+
+                                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                    Icon(
+                                        painter = painterResource(R.drawable.ic_location),
+                                        contentDescription = "Location",
+                                        tint = Color.Blue
+                                    )
+
+                                    Text(
+                                        text = "View Location",
+                                        style = MaterialTheme.typography.bodySmall,
+                                        color = Color.Blue
+                                    )
+                                }
+                            }
                         }
+
                     }
                 }
             }
