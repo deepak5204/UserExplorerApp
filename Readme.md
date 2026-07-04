@@ -180,16 +180,8 @@ Run the application on an emulator or physical Android device.
 
 ## Future Improvements
 
-- Search users
 - User Details Screen
-- Favorite Users
-- Pagination
 - Hilt Dependency Injection
-- Room Database
-- Dark Mode
-- Pull to Refresh
-- Unit Testing
-- Tablet Support
 
 ---
 
