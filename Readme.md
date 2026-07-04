@@ -1,4 +1,4 @@
-# 📱 User Explorer App
+# User Explorer App
 
 A modern Android application built with **Kotlin**, **Jetpack Compose**, **MVVM**, and **Retrofit** to explore user information from a remote REST API.
 
@@ -6,7 +6,7 @@ This project is being developed as a learning project to gain practical experien
 
 ---
 
-## ✨ Features
+## Features
 
 - Fetch users from REST API using Retrofit
 - Display users in a modern Material 3 interface
@@ -21,13 +21,13 @@ This project is being developed as a learning project to gain practical experien
 
 ---
 
-## 📸 Screenshots
+## Screenshots
 
 > Screenshots will be added soon.
 
 ---
 
-## 🏛 Architecture
+## Architecture
 
 This project follows the **MVVM (Model-View-ViewModel)** architecture.
 
@@ -78,7 +78,7 @@ Compose UI
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
 ```
 com.example.userexplorerapp
@@ -108,7 +108,7 @@ com.example.userexplorerapp
 
 ---
 
-## 🛠 Tech Stack
+## Tech Stack
 
 - Kotlin
 - Jetpack Compose
@@ -123,7 +123,7 @@ com.example.userexplorerapp
 
 ---
 
-## 🌐 APIs Used
+## APIs Used
 
 ### User API
 
@@ -139,7 +139,7 @@ https://i.pravatar.cc/
 
 ---
 
-## 📚 What I Learned
+## What I Learned
 
 This project is helping me gain practical experience with:
 
@@ -150,13 +150,13 @@ This project is helping me gain practical experience with:
 - StateFlow
 - Jetpack Compose
 - UI State Management
-- Material 3 Design
+- Material 3
 - Implicit Intents
 - Modern Android Project Structure
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Clone the repository
 
@@ -178,22 +178,22 @@ Run the application on an emulator or physical Android device.
 
 ---
 
-## 🔮 Future Improvements
+## Future Improvements
 
-- 🔍 Search users
-- 👤 User Details Screen
-- ❤️ Favorite Users
-- 📄 Pagination
-- 💉 Hilt Dependency Injection
-- 💾 Room Database
-- 🌙 Dark Mode
-- 🔄 Pull to Refresh
-- 🧪 Unit Testing
-- 📱 Tablet Support
+- Search users
+- User Details Screen
+- Favorite Users
+- Pagination
+- Hilt Dependency Injection
+- Room Database
+- Dark Mode
+- Pull to Refresh
+- Unit Testing
+- Tablet Support
 
 ---
 
-## 👨‍💻 Author
+## Author
 
 **Deepak Kumar**
 
@@ -201,7 +201,7 @@ Android Developer
 
 ---
 
-## ⭐ Project Goal
+## Project Goal
 
 The primary goal of this project is to strengthen my understanding of:
 
