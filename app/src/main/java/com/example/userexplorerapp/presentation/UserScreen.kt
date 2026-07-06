@@ -2,6 +2,7 @@ package com.example.userexplorerapp.presentation
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -109,7 +110,7 @@ fun UserScreen(viewModel: UserViewModel) {
             CircularProgressIndicator()
         }
     } else if (uiState.error != null) {
-        Toast.makeText(context, uiState.error, Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, uiState.error, Toast.LENGTH_LONG).show()
     } else {
         val userList = uiState.users
 
