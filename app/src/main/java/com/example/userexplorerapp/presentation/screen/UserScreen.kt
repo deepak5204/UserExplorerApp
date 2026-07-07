@@ -1,8 +1,7 @@
-package com.example.userexplorerapp.presentation
+package com.example.userexplorerapp.presentation.screen
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -45,7 +44,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.example.userexplorerapp.R
 import com.example.userexplorerapp.ui.theme.UserExplorerAppTheme
-import com.example.userexplorerapp.viewmodel.UserViewModel
+import com.example.userexplorerapp.presentation.viewmodel.UserViewModel
 
 
 fun openEmail(context: Context, email: String) {

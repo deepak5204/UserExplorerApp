@@ -1,10 +1,10 @@
-package com.example.userexplorerapp.viewmodel
+package com.example.userexplorerapp.presentation.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.userexplorerapp.repository.UserRepository
-import com.example.userexplorerapp.uiState.UserUiState
+import com.example.userexplorerapp.presentation.state.UserUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
