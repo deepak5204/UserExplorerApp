@@ -5,6 +5,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.userexplorerapp.presentation.screen.HomeScreen
 import com.example.userexplorerapp.presentation.screen.UserScreen
 import com.example.userexplorerapp.presentation.viewmodel.UserViewModel
 
@@ -15,11 +16,15 @@ fun AppNavHost(){
 
     NavHost(
         navController = navController,
-        startDestination = Screen.UserList.route
+        startDestination = Screen.Home.route
     ) {
 
         composable(Screen.Home.route) {
-            // HomeScreen()
+            HomeScreen(
+                onExploreUsersClick = {
+                    navController.navigate(Screen.UserList.route)
+                }
+            )
         }
 
         composable(Screen.UserList.route) {
