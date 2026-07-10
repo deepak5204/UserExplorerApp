@@ -1,17 +1,20 @@
 # User Explorer App
 
-A modern Android application built with **Kotlin**, **Jetpack Compose**, **MVVM**, and **Retrofit** to explore user information from a remote REST API.
+User Explorer App is a modern Android application built with **Kotlin**, **Jetpack Compose**, **MVVM**, and **Retrofit**. It allows users to browse user information retrieved from a remote REST API and perform common actions such as calling, emailing, opening websites, and viewing locations in Google Maps.
 
-This project is being developed as a learning project to gain practical experience with modern Android architecture and best practices.
+This project was developed to gain hands-on experience with modern Android development practices and architecture.
 
 ---
 
 ## Features
 
+- Home screen with navigation to the user list
 - Fetch users from REST API using Retrofit
-- Display users in a modern Material 3 interface
+- Display users in a modern Material 3 UI
 - MVVM architecture
+- Repository Pattern
 - Reactive UI using StateFlow
+- Navigation using Navigation Compose
 - Display profile images using Coil
 - Open website in browser
 - Open email client
@@ -37,7 +40,7 @@ This project follows the **MVVM (Model-View-ViewModel)** architecture.
                         ▼
                  UserViewModel
                         │
-                 StateFlow<UserUiState>
+            StateFlow<UserUiState>
                         │
                         ▼
                 UserRepository
@@ -87,21 +90,30 @@ com.example.userexplorerapp
 │   ├── UserDto.kt
 │   └── UserResponse.kt
 │
+├── navigation
+│   ├── AppNavHost.kt
+│   └── Screen.kt
+│
 ├── network
 │   ├── RetrofitInstance.kt
 │   └── UserApi.kt
 │
 ├── presentation
-│   └── UserScreen.kt
+│   ├── screen
+│   │   ├── HomeScreen.kt
+│   │   └── UserScreen.kt
+│   │
+│   ├── uiState
+│   │   └── UserUiState.kt
+│   │
+│   └── viewmodel
+│       └── UserViewModel.kt
 │
 ├── repository
 │   └── UserRepository.kt
 │
-├── uiState
-│   └── UserUiState.kt
-│
-├── viewmodel
-│   └── UserViewModel.kt
+├── ui
+│   └── theme
 │
 └── MainActivity.kt
 ```
@@ -112,13 +124,15 @@ com.example.userexplorerapp
 
 - Kotlin
 - Jetpack Compose
+- Material 3
 - MVVM Architecture
+- Navigation Compose
 - Retrofit
 - Gson Converter
 - Kotlin Coroutines
 - StateFlow
 - Coil
-- Material 3
+- Repository Pattern
 - Implicit Intents
 
 ---
@@ -141,14 +155,16 @@ https://i.pravatar.cc/
 
 ## What I Learned
 
-This project is helping me gain practical experience with:
+Through this project, I gained practical experience with:
 
 - MVVM Architecture
-- Retrofit
-- REST API integration
 - Repository Pattern
+- Retrofit Networking
+- REST API Integration
+- Kotlin Coroutines
 - StateFlow
 - Jetpack Compose
+- Navigation Compose
 - UI State Management
 - Material 3
 - Implicit Intents
@@ -170,18 +186,19 @@ Open the project in Android Studio.
 
 ### Sync Gradle
 
-Allow Gradle to download all dependencies.
+Allow Gradle to download all project dependencies.
 
-### Run
+### Run the application
 
-Run the application on an emulator or physical Android device.
+Run the application on an emulator or a physical Android device.
 
 ---
 
 ## Future Improvements
 
-- User Details Screen
 - Hilt Dependency Injection
+- Room Database
+- Paging 3
 
 ---
 
@@ -195,10 +212,13 @@ Android Developer
 
 ## Project Goal
 
-The primary goal of this project is to strengthen my understanding of:
+The primary goal of this project was to strengthen my understanding of:
 
 - Modern Android Development
-- Clean MVVM Architecture
+- MVVM Architecture
 - Retrofit Networking
-- Reactive UI with StateFlow
-- Building production-style Android applications
+- Repository Pattern
+- StateFlow
+- Navigation Compose
+- Jetpack Compose
+- Building scalable and maintainable Android applications
