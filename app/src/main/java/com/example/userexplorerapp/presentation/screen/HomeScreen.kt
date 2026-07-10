@@ -1,9 +1,14 @@
 package com.example.userexplorerapp.presentation.screen
 
 
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,6 +19,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForward
+import androidx.compose.material.icons.filled.LocationOn
+import androidx.compose.material.icons.filled.MailOutline
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -25,14 +32,23 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.userexplorerapp.R
 
-private val Background = Color(0xFF08101F)
+
+private val BackgroundGradient = Brush.verticalGradient(
+    colors = listOf(
+        Color(0xFF0B1020), Color(0xFF111827), Color(0xFF08101F)
+    )
+)
 private val Purple = Color(0xFF7B61FF)
-private val Blue = Color(0xFF3D8BFF)
 
 @Composable
 fun HomeScreen(
@@ -42,7 +58,7 @@ fun HomeScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Background)
+            .background(BackgroundGradient)
             .padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -50,8 +66,7 @@ fun HomeScreen(
         Spacer(modifier = Modifier.height(40.dp))
 
         Column(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally
+            modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
                 text = "User Explorer",
@@ -64,43 +79,42 @@ fun HomeScreen(
             Text(
                 text = "Explore, connect & discover\nusers worldwide",
                 style = MaterialTheme.typography.bodyLarge,
-                color = Color.LightGray,
+                color = Color.White.copy(alpha = 0.72f),
                 textAlign = TextAlign.Center
             )
         }
 
         Spacer(modifier = Modifier.height(40.dp))
 
-        Icon(
-            imageVector = Icons.Default.Person,
+        Image(
+            painter = painterResource(R.drawable.ic_home_screen),
             contentDescription = null,
-            tint = Blue,
-            modifier = Modifier.size(160.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(320.dp)
+                .clip(RoundedCornerShape(24.dp)),
+            contentScale = ContentScale.Crop
         )
 
-        Spacer(modifier = Modifier.height(40.dp))
+        Spacer(modifier = Modifier.height(24.dp))
 
-//        Row(
-//            horizontalArrangement = Arrangement.spacedBy(12.dp)
-//        ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly
+        ) {
+            FeatureCard(
+                icon = Icons.Default.Person, title = "Profiles"
+            )
 
-//            FeatureCard(
-//                icon = Icons.Default.Person,
-//                title = "Users"
-//            )
-//
-//            FeatureCard(
-//                icon = Icons.Default.Info,
-//                title = "Details"
-//            )
-//
-//            FeatureCard(
-//                icon = Icons.Default.LocationOn,
-//                title = "Maps"
-//            )
-//        }
+            FeatureCard(
+                icon = Icons.Default.LocationOn, title = "Locations"
+            )
 
-        Spacer(modifier = Modifier.weight(1f))
+            FeatureCard(
+                icon = Icons.Default.MailOutline, title = "Contacts"
+            )
+        }
+
+        Spacer(modifier = Modifier.height(24.dp))
 
         Button(
             onClick = onExploreUsersClick,
@@ -108,22 +122,39 @@ fun HomeScreen(
                 .fillMaxWidth()
                 .height(56.dp),
             colors = ButtonDefaults.buttonColors(
-                containerColor = Purple
+                containerColor = Color.Transparent
             ),
+            contentPadding = PaddingValues(0.dp),
             shape = RoundedCornerShape(14.dp)
         ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(
+                        brush = Brush.horizontalGradient(
+                            colors = listOf(
+                                Color(0xFF7C4DFF), Color(0xFF6C63FF)
+                            )
+                        ), shape = RoundedCornerShape(14.dp)
+                    ), contentAlignment = Alignment.Center
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Text(
+                        text = "Explore Users", color = Color.White
+                    )
 
-            Text(
-                text = "Explore Users",
-                color = Color.White
-            )
+                    Spacer(modifier = Modifier.width(8.dp))
 
-            Spacer(modifier = Modifier.width(8.dp))
-
-            Icon(
-                imageVector = Icons.Default.ArrowForward,
-                contentDescription = null
-            )
+                    Icon(
+                        imageVector = Icons.Default.ArrowForward,
+                        contentDescription = null,
+                        tint = Color.White
+                    )
+                }
+            }
         }
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -132,8 +163,7 @@ fun HomeScreen(
 
 @Composable
 private fun FeatureCard(
-    icon: androidx.compose.ui.graphics.vector.ImageVector,
-    title: String
+    icon: androidx.compose.ui.graphics.vector.ImageVector, title: String
 ) {
 
     Card(
@@ -141,30 +171,37 @@ private fun FeatureCard(
             width = 100.dp,
             height = 110.dp
         ),
+        shape = RoundedCornerShape(18.dp),
         colors = CardDefaults.cardColors(
-            containerColor = Color(0xFF111B2F)
+            containerColor = Color.White.copy(alpha = 0.06f)
         ),
-        shape = RoundedCornerShape(16.dp)
+        border = BorderStroke(
+            1.dp,
+            Color.White.copy(alpha = 0.08f)
+        )
     ) {
 
         Column(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
+            modifier = Modifier.fillMaxSize()
+                .background(color = Color.Unspecified, shape = RoundedCornerShape(24.dp)),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
 
             Icon(
                 imageVector = icon,
                 contentDescription = null,
-                tint = Purple,
-                modifier = Modifier.size(30.dp)
+                tint = Color(0xFF8B7BFF),   // Softer purple
+                modifier = Modifier.size(28.dp)
             )
 
-            Spacer(modifier = Modifier.height(12.dp))
+            Spacer(modifier = Modifier.height(10.dp))
 
             Text(
                 text = title,
-                color = Color.White
+                style = MaterialTheme.typography.bodyMedium,
+                color = Color.White.copy(alpha = 0.9f),
+                textAlign = TextAlign.Center
             )
         }
     }
