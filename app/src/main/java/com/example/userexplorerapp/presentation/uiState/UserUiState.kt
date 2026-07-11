@@ -1,4 +1,4 @@
-package com.example.userexplorerapp.presentation.state
+package com.example.userexplorerapp.presentation.uiState
 
 import com.example.userexplorerapp.model.UserDto
 
