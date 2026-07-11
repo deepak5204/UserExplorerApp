@@ -25,8 +25,13 @@ This project was developed to gain hands-on experience with modern Android devel
 ---
 
 ## Screenshots
+### Home Screen
 
-> Screenshots will be added soon.
+![Home Screen](screenshots/home_screen_screenshot.png)
+
+### User List Screen
+
+![User List Screen](screenshots/user_list_screen_screenshot.png)
 
 ---
 
@@ -177,7 +182,7 @@ Through this project, I gained practical experience with:
 ### Clone the repository
 
 ```bash
-git clone https://github.com/<your-username>/UserExplorerApp.git
+git clone https://github.com/deepak5204/UserExplorerApp
 ```
 
 ### Open the project
