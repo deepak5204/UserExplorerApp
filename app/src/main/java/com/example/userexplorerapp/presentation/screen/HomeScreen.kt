@@ -114,7 +114,7 @@ fun HomeScreen(
             )
         }
 
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(60.dp))
 
         Button(
             onClick = onExploreUsersClick,
@@ -157,7 +157,6 @@ fun HomeScreen(
             }
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
     }
 }
 
