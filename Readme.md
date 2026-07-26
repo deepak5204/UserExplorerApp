@@ -226,4 +226,4 @@ The primary goal of this project was to strengthen my understanding of:
 - StateFlow
 - Navigation Compose
 - Jetpack Compose
-- Building scalable and maintainable Android applications
+- Building scalable and maintainable Android applications 
